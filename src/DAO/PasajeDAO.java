@@ -2,9 +2,6 @@ package DAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
-
 import Conexion.ConexionBD;
 import VO.Pasaje;
 
@@ -35,7 +32,7 @@ public class PasajeDAO {
 		   conexion.desconectar();
 		   
 		  } catch (Exception e) {
-		   JOptionPane.showMessageDialog(null, "no se pudo consultar el pasaje\n"+e);
+		   System.out.println("no se pudo consultar el pasaje\n"+e);
 		  }
 		  return pasajesEnCurso;
 		 }	
