@@ -26,6 +26,7 @@ public class PasajeDAO {
 			   Pasaje pasaje= new Pasaje();
 			   pasaje.setDireccion(resultado.getString("direccion"));
 			   pasaje.setCliente(resultado.getString("nombreCliente"));
+			   pasaje.setId(resultado.getString("id"));
 			   pasaje.setNumeroDeMovil(Integer.parseInt(resultado.getString("numeroMovil")));
 			   pasajesEnCurso.add(pasaje);
 		   }

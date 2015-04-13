@@ -25,6 +25,7 @@ public class ChoferDAO {
 			   chofer.setUsuario(resultado.getString("usuario"));
 			   chofer.setLongitud(resultado.getString("longitud"));
 			   chofer.setLatitud(resultado.getString("latitud"));
+			   chofer.setClaveGCM(resultado.getString("clave_gcm"));
 			   chofer.setNumeroDeMovil(Integer.parseInt(resultado.getString("numero_movil")));
 			   choferesConectados.add(chofer);
 		   }

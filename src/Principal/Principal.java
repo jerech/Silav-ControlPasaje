@@ -1,6 +1,11 @@
 package Principal;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import com.google.android.gcm.server.Message;
+import com.google.android.gcm.server.Result;
+import com.google.android.gcm.server.Sender;
 
 import DAO.PasajeDAO;
 import DAO.ChoferDAO;
@@ -11,41 +16,32 @@ public class Principal {
 
 	private ArrayList<Pasaje> pasajes;
 	private ArrayList<Chofer> choferes;
+	private PasajeDAO pasajeDAO;
+	private ChoferDAO choferDAO;
+	private final String apiKey = "AIzaSyBRy8ZJ8bpiqg9Dny05p24WsKCDGLQLYSs";
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Principal principal = new Principal();
+		principal.pasajeDAO = new PasajeDAO();
+		principal.choferDAO = new ChoferDAO();
 		principal.iniciar();
 	}
 
 	private void iniciar(){
 
-		pasajes = obtenerPasajes();
+		pasajes = pasajeDAO.getPasajesEnCurso();
 		if(pasajes.size() == 0){
 			esperar(10);
 		}
 		else{
-			choferes = obtenerChoferes();//VER FRECUENCIA DE CONSULTA
+			choferes = choferDAO.getChoferesConectados();
 			while(pasajes.size() != 0){
 				asignarPasaje(pasajes.get(0));
 				pasajes.remove(0);
 			}
 		}
 		iniciar();
-	}
-	
-	private ArrayList<Pasaje> obtenerPasajes(){
-		
-		PasajeDAO pasajeDAO = new PasajeDAO();
-		ArrayList<Pasaje> pasajesEnCurso = pasajeDAO.getPasajesEnCurso();
-		return pasajesEnCurso;
-	}
-
-	private ArrayList<Chofer> obtenerChoferes(){
-		
-		ChoferDAO choferDAO = new ChoferDAO();
-		ArrayList<Chofer> choferesConectados = choferDAO.getChoferesConectados();
-		return choferesConectados;
 	}
 	
 	private void esperar (int segundos) {
@@ -63,9 +59,26 @@ public class Principal {
 		else{
 			for(int i=0 ; i<choferes.size() ; i++){
 				if(pasaje.getNumeroDeMovil() == choferes.get(i).getNumeroDeMovil()){
-					//ENVIAR PASAJE
+					enviarPasaje(pasaje, choferes.get(i));
 				}
+
 			}
+		}
+	}
+	
+	private void enviarPasaje(Pasaje pasaje, Chofer chofer){
+		Sender sender = new Sender(apiKey);
+		Message message = new Message.Builder()
+		    .addData("direccion", pasaje.getDireccion())
+		    .addData("cliente", pasaje.getCliente())
+		    .addData("id", pasaje.getId())
+		    .build();
+		try {
+			Result result = sender.sendNoRetry(message, chofer.getClaveGCM());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("ERROR:"+e);
+			e.printStackTrace();
 		}
 	}
 }

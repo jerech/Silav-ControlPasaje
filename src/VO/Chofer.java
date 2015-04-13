@@ -5,6 +5,7 @@ public class Chofer {
 	private String usuario;
 	private String longitud;
 	private String latitud;
+	private String claveGCM;
 	private int numeroDeMovil;//ATRIBUTO TEMPORAL
 	
 	public String getUsuario(){
@@ -21,6 +22,13 @@ public class Chofer {
 		this.longitud = longitud;
 	}
 	
+	public String getClaveGCM(){
+		return this.claveGCM;
+	}
+	public void setClaveGCM(String claveGCM){
+		this.claveGCM = claveGCM;
+	}
+
 	public String getLatitud(){
 		return this.latitud;
 	}

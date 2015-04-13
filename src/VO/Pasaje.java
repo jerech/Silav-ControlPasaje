@@ -4,6 +4,7 @@ public class Pasaje {
 
 	private String direccion;
 	private String cliente;
+	private String id;
 	private int numeroDeMovil;//ATRIBUTO TEMPORAL
 	//preferenciasDeMovil
 	
@@ -19,6 +20,13 @@ public class Pasaje {
 	}
 	public void setCliente(String cliente){
 		this.cliente = cliente;
+	}
+	
+	public String getId(){
+		return this.id;
+	}
+	public void setId(String id){
+		this.id = id;
 	}
 	
 	public int getNumeroDeMovil(){
