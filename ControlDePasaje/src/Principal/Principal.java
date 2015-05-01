@@ -8,9 +8,8 @@ import com.google.android.gcm.server.Result;
 import com.google.android.gcm.server.Sender;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+
 
 import Conexion.ConexionBD;
 import DAO.PasajeDAO;
@@ -105,7 +104,7 @@ public class Principal {
 	
 	private boolean enviarPasaje(Pasaje pasaje, Chofer chofer){
 		boolean envioExitoso = false;
-		/*Sender sender = new Sender(apiKey);
+		Sender sender = new Sender(apiKey);
 		Message message = new Message.Builder()
 		    .addData("direccion", pasaje.getDireccion())
 		    .addData("cliente", pasaje.getCliente())
@@ -119,7 +118,7 @@ public class Principal {
 			System.out.println("ERROR:"+e);
 			e.printStackTrace();
 			envioExitoso = false;
-		}*/
+		}
 		System.out.println("Se envio el pasaje");
 		envioExitoso = true;
 		return (envioExitoso);
