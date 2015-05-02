@@ -10,7 +10,7 @@ public class ConexionBD {
 	static String bd = "silav";
 	static String login = "root";
 	static String password = "Silav_2015";
-	static String url = "jdbc:mysql://localhost/"+bd;
+	static String url = "jdbc:mysql://localhost/"+bd+"?autoReconnect=true";
 	 
 	Connection connection = null;
 	 

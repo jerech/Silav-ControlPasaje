@@ -2,8 +2,10 @@ package DAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import Conexion.ConexionBD;
+
 import VO.Pasaje;
+import Conexion.ConexionBD;
+
 
 /**
  * Clase que permite el acceso a la base de datos
