@@ -2,6 +2,7 @@ package Principal;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import com.google.android.gcm.server.Message;
 import com.google.android.gcm.server.Result;
@@ -104,11 +105,16 @@ public class Principal {
 	
 	private boolean enviarPasaje(Pasaje pasaje, Chofer chofer){
 		boolean envioExitoso = false;
+		Calendar calendar = Calendar.getInstance();
+		String fechaHoy = calendar.get(Calendar.YEAR)+"-"+calendar.get(Calendar.MONTH)
+			    +"-"+calendar.get(Calendar.DATE)+" "+calendar.get(Calendar.HOUR)
+			    +":"+calendar.get(Calendar.MINUTE);
 		Sender sender = new Sender(apiKey);
 		Message message = new Message.Builder()
 		    .addData("direccion", pasaje.getDireccion())
 		    .addData("cliente", pasaje.getCliente())
 		    .addData("id", pasaje.getId())
+		    .addData("fecha", fechaHoy)
 		    .build();
 		try {
 			Result result = sender.sendNoRetry(message, chofer.getClaveGCM());
