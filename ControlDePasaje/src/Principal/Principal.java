@@ -41,7 +41,9 @@ public class Principal {
 	}
 
 	private void iniciar(){
-
+		if(conexion.sinConexion()){
+			conexion = new ConexionBD();
+		}
 		pasajes = pasajeDAO.getPasajesEnCurso();
 		if(pasajes.size() == 0){
 			System.out.println("No hay pasajes..");

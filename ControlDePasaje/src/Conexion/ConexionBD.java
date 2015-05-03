@@ -39,4 +39,15 @@ public class ConexionBD {
 	   public void desconectar(){
 	      connection = null;
 	   }
+	   
+	   public boolean sinConexion(){
+		   try {
+			return connection.isClosed();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		   
+		   return true;
+	   }
 }
