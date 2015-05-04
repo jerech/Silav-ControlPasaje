@@ -41,5 +41,11 @@ public class PasajeDAO{
 		   System.out.println("no se pudo consultar el pasaje\n"+e);
 		  }
 		  return pasajesEnCurso;
-		 }	
+		 }
+
+	public void setConexion(ConexionBD conexion) {
+		this.conexion = conexion;
+	}	
+	
+	
 }

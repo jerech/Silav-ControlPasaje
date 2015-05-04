@@ -56,4 +56,10 @@ public class ChoferDAO {
 		  }
 		  return choferesConectados;
 		 }
+
+	public void setConexion(ConexionBD conexion) {
+		this.conexion = conexion;
+	}
+	
+	
 }

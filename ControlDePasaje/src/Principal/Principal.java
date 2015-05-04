@@ -42,7 +42,10 @@ public class Principal {
 
 	private void iniciar(){
 		if(conexion.sinConexion()){
+			System.out.println(Calendar.getInstance().getTime().toString()+"Se instancia una nueva conexion DB");
 			conexion = new ConexionBD();
+			pasajeDAO.setConexion(conexion);
+			choferDAO.setConexion(conexion);
 		}
 		pasajes = pasajeDAO.getPasajesEnCurso();
 		if(pasajes.size() == 0){
