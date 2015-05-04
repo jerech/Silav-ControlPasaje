@@ -32,6 +32,7 @@ public class PasajeDAO{
 			   pasaje.setCliente(resultado.getString("nombreCliente"));
 			   pasaje.setId(resultado.getString("id"));
 			   pasaje.setChofer(resultado.getString("usuarioChofer"));
+			   pasaje.setFecha(resultado.getString("fecha"));
 			   pasajesEnCurso.add(pasaje);
 		   }
 		   resultado.close();

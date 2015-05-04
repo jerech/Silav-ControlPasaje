@@ -110,16 +110,13 @@ public class Principal {
 	
 	private boolean enviarPasaje(Pasaje pasaje, Chofer chofer){
 		boolean envioExitoso = false;
-		Calendar calendar = Calendar.getInstance();
-		String fechaHoy = calendar.get(Calendar.YEAR)+"-"+calendar.get(Calendar.MONTH)
-			    +"-"+calendar.get(Calendar.DATE)+" "+calendar.get(Calendar.HOUR_OF_DAY)
-			    +":"+calendar.get(Calendar.MINUTE);
+		
 		Sender sender = new Sender(apiKey);
 		Message message = new Message.Builder()
 		    .addData("direccion", pasaje.getDireccion())
 		    .addData("cliente", pasaje.getCliente())
 		    .addData("id", pasaje.getId())
-		    .addData("fecha", fechaHoy)
+		    .addData("fecha", pasaje.getFecha())
 		    .build();
 		try {
 			Result result = sender.sendNoRetry(message, chofer.getClaveGCM());

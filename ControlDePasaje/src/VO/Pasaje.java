@@ -5,6 +5,7 @@ public class Pasaje {
 	private String direccion;
 	private String cliente;
 	private String id;
+	private String fecha;
 	private String usuarioChofer;//ATRIBUTO TEMPORAL
 	//preferenciasDeMovil
 	
@@ -35,4 +36,12 @@ public class Pasaje {
 	public void setChofer(String usuarioChofer){
 		this.usuarioChofer = usuarioChofer;
 	}
+	public String getFecha() {
+		return fecha;
+	}
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
+	
+	
 }
