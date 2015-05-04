@@ -112,7 +112,7 @@ public class Principal {
 		boolean envioExitoso = false;
 		Calendar calendar = Calendar.getInstance();
 		String fechaHoy = calendar.get(Calendar.YEAR)+"-"+calendar.get(Calendar.MONTH)
-			    +"-"+calendar.get(Calendar.DATE)+" "+calendar.get(Calendar.HOUR)
+			    +"-"+calendar.get(Calendar.DATE)+" "+calendar.get(Calendar.HOUR_OF_DAY)
 			    +":"+calendar.get(Calendar.MINUTE);
 		Sender sender = new Sender(apiKey);
 		Message message = new Message.Builder()
