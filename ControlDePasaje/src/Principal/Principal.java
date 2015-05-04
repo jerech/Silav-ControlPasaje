@@ -120,6 +120,12 @@ public class Principal {
 		    .build();
 		try {
 			Result result = sender.sendNoRetry(message, chofer.getClaveGCM());
+			if(result.getErrorCodeName().length() == 0){
+				System.out.println("Se envio el pasaje correctamente");
+			}else{
+				System.out.println("Error al enviar pasaje. "+result.getErrorCodeName());
+			}
+			
 			envioExitoso = true;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -127,7 +133,7 @@ public class Principal {
 			e.printStackTrace();
 			envioExitoso = false;
 		}
-		System.out.println("Se envio el pasaje");
+		
 		envioExitoso = true;
 		return (envioExitoso);
 	}
