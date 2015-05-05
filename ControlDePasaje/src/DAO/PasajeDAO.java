@@ -13,19 +13,16 @@ import Conexion.ConexionBD;
  */
 public class PasajeDAO{
 	
-	private ConexionBD conexion;
-	
 	public PasajeDAO(){
 		
 	}
 	
 	public ArrayList<Pasaje> getPasajesEnCurso() {
-		conexion = new ConexionBD();
 		
 		  ArrayList<Pasaje> pasajesEnCurso = new ArrayList<Pasaje>();
 		     
 		  try {
-		   PreparedStatement consulta = conexion.getConnection().prepareStatement("SELECT * FROM PasajesEnCurso WHERE estado = 'por_asignar'");
+		   PreparedStatement consulta = ConexionBD.getConnection().prepareStatement("SELECT * FROM PasajesEnCurso WHERE estado = 'por_asignar'");
 		   ResultSet resultado = consulta.executeQuery();
 		   while(resultado.next()){
 			   Pasaje pasaje= new Pasaje();
@@ -43,8 +40,8 @@ public class PasajeDAO{
 		   System.out.println("no se pudo consultar el pasaje\n"+e);
 		  }
 		  
-		  conexion.desconectar();
-		  
+		  ConexionBD.desconectar();
+		 
 		  return pasajesEnCurso;
 		 }
 

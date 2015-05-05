@@ -2,7 +2,6 @@ package Principal;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import com.google.android.gcm.server.Message;
 import com.google.android.gcm.server.Result;
@@ -42,7 +41,7 @@ public class Principal {
 		
 		pasajes = pasajeDAO.getPasajesEnCurso();
 		if(pasajes.size() == 0){
-			System.out.println("No hay pasajes..");
+			//System.out.println("No hay pasajes..");
 			esperar(10);
 		}
 		else{
@@ -80,6 +79,7 @@ public class Principal {
 		try {
 			Thread.sleep (segundos*1000);
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		// Mensaje en caso de que falle
 		}
 	}
@@ -132,31 +132,29 @@ public class Principal {
 	}
 	
 	private void actualizarEstadoPasaje(Pasaje pasaje){
-		ConexionBD conexion = new ConexionBD();
 		  
   		try {
-  			PreparedStatement statement = conexion.getConnection().prepareStatement("UPDATE PasajesEnCurso SET estado = 'en_espera' WHERE id = "+pasaje.getId());
+  			PreparedStatement statement = ConexionBD.getConnection().prepareStatement("UPDATE PasajesEnCurso SET estado = 'en_espera' WHERE id = "+pasaje.getId());
   			int rowsUpdated = statement.executeUpdate();
   			statement.close();
     
   		} catch (SQLException e) {
   			System.out.println("Error al cambiar el estado del pasaje");
   		}
-  		conexion.desconectar();
+  		ConexionBD.desconectar();
 	}
 
 	private void actualizarEstadoChofer(Chofer chofer){
-		ConexionBD conexion = new ConexionBD();
 		  
   		try {
-  			PreparedStatement statement = conexion.getConnection().prepareStatement("UPDATE ChoferesConectados SET estado_movil = 'OCUPADO' WHERE usuario = '"+chofer.getUsuario()+"'");
+  			PreparedStatement statement = ConexionBD.getConnection().prepareStatement("UPDATE ChoferesConectados SET estado_movil = 'OCUPADO' WHERE usuario = '"+chofer.getUsuario()+"'");
   			int rowsUpdated = statement.executeUpdate();
   			statement.close();
     
   		} catch (SQLException e) {
   			System.out.println("Error al cambiar el estado del chofer");
   		}
-  		conexion.desconectar();
+  		ConexionBD.desconectar();
 	}
 	
 	private boolean listaDePasajesIguales(ArrayList<Pasaje> lista1, ArrayList<Pasaje> lista2){

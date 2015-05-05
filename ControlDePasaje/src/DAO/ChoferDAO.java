@@ -10,19 +10,17 @@ import VO.Chofer;
  *
  */
 public class ChoferDAO {
-
-	private ConexionBD conexion;
 	
 	public ChoferDAO(){
 		
 	}
 	
-	public ArrayList<Chofer> getChoferesConectados() {
-		conexion = new ConexionBD();
+	public static ArrayList<Chofer> getChoferesConectados() {
+
 		  ArrayList<Chofer> choferesConectados = new ArrayList<Chofer>();
 		     
 		  try {
-		   PreparedStatement consulta = conexion.getConnection().prepareStatement("SELECT * FROM ChoferesConectados WHERE estado_movil = 'LIBRE'");
+		   PreparedStatement consulta = ConexionBD.getConnection().prepareStatement("SELECT * FROM ChoferesConectados WHERE estado_movil = 'LIBRE'");
 		   ResultSet resultado = consulta.executeQuery();
 		   while(resultado.next()){
 			   Chofer chofer = new Chofer();
@@ -32,7 +30,7 @@ public class ChoferDAO {
 			   chofer.setNumeroDeMovil(Integer.parseInt(resultado.getString("numero_movil")));
 			   
 			   try{
-				   PreparedStatement consulta2 = conexion.getConnection().prepareStatement("SELECT clave_gcm FROM Choferes WHERE usuario='"+chofer.getUsuario()+"'");
+				   PreparedStatement consulta2 = ConexionBD.getConnection().prepareStatement("SELECT clave_gcm FROM Choferes WHERE usuario='"+chofer.getUsuario()+"'");
 				   ResultSet resultado2 = consulta2.executeQuery();
 				   if(resultado2.next()){
 					   chofer.setClaveGCM(resultado2.getString("clave_gcm"));
@@ -54,13 +52,10 @@ public class ChoferDAO {
 		  } catch (Exception e) {
 		   System.out.println("no se pudo consultar el chofer\n"+e);
 		  }
-		  conexion.desconectar();
+		  ConexionBD.desconectar();
 		  return choferesConectados;
 		 }
 
-	public void setConexion(ConexionBD conexion) {
-		this.conexion = conexion;
-	}
 	
 	
 }
