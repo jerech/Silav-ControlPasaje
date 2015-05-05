@@ -26,27 +26,20 @@ public class Principal {
 	private ArrayList<Chofer> choferesAnteriores;
 	private PasajeDAO pasajeDAO;
 	private ChoferDAO choferDAO;
-	private ConexionBD conexion;
 	private final String apiKey = "AIzaSyBRy8ZJ8bpiqg9Dny05p24WsKCDGLQLYSs";
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Principal principal = new Principal();
-		principal.conexion = new ConexionBD();
-		principal.pasajeDAO = new PasajeDAO(principal.conexion);
-		principal.choferDAO = new ChoferDAO(principal.conexion);
+		principal.pasajeDAO = new PasajeDAO();
+		principal.choferDAO = new ChoferDAO();
 		principal.pasajesAnteriores = new ArrayList<Pasaje>();
 		principal.choferesAnteriores = new ArrayList<Chofer>();
 		principal.iniciar();
 	}
 
 	private void iniciar(){
-		if(conexion.sinConexion()){
-			System.out.println(Calendar.getInstance().getTime().toString()+"Se instancia una nueva conexion DB");
-			conexion = new ConexionBD();
-			pasajeDAO.setConexion(conexion);
-			choferDAO.setConexion(conexion);
-		}
+		
 		pasajes = pasajeDAO.getPasajesEnCurso();
 		if(pasajes.size() == 0){
 			System.out.println("No hay pasajes..");
@@ -120,16 +113,16 @@ public class Principal {
 		    .build();
 		try {
 			Result result = sender.sendNoRetry(message, chofer.getClaveGCM());
-			if(result.getErrorCodeName().length() == 0){
+			if(result.getErrorCodeName()!=null){
 				System.out.println("Se envio el pasaje correctamente");
 			}else{
-				System.out.println("Error al enviar pasaje. "+result.getErrorCodeName());
+				System.out.println("No se envio el pasaje correctamente. "+result.getErrorCodeName());
 			}
 			
 			envioExitoso = true;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println("ERROR:"+e);
+			System.out.println("ERROR:"+e.getMessage());
 			e.printStackTrace();
 			envioExitoso = false;
 		}
@@ -139,6 +132,7 @@ public class Principal {
 	}
 	
 	private void actualizarEstadoPasaje(Pasaje pasaje){
+		ConexionBD conexion = new ConexionBD();
 		  
   		try {
   			PreparedStatement statement = conexion.getConnection().prepareStatement("UPDATE PasajesEnCurso SET estado = 'en_espera' WHERE id = "+pasaje.getId());
@@ -148,9 +142,11 @@ public class Principal {
   		} catch (SQLException e) {
   			System.out.println("Error al cambiar el estado del pasaje");
   		}
+  		conexion.desconectar();
 	}
 
 	private void actualizarEstadoChofer(Chofer chofer){
+		ConexionBD conexion = new ConexionBD();
 		  
   		try {
   			PreparedStatement statement = conexion.getConnection().prepareStatement("UPDATE ChoferesConectados SET estado_movil = 'OCUPADO' WHERE usuario = '"+chofer.getUsuario()+"'");
@@ -160,6 +156,7 @@ public class Principal {
   		} catch (SQLException e) {
   			System.out.println("Error al cambiar el estado del chofer");
   		}
+  		conexion.desconectar();
 	}
 	
 	private boolean listaDePasajesIguales(ArrayList<Pasaje> lista1, ArrayList<Pasaje> lista2){

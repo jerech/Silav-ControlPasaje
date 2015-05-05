@@ -15,11 +15,12 @@ public class PasajeDAO{
 	
 	private ConexionBD conexion;
 	
-	public PasajeDAO(ConexionBD conexion){
-		this.conexion = conexion;
+	public PasajeDAO(){
+		
 	}
 	
 	public ArrayList<Pasaje> getPasajesEnCurso() {
+		conexion = new ConexionBD();
 		
 		  ArrayList<Pasaje> pasajesEnCurso = new ArrayList<Pasaje>();
 		     
@@ -41,12 +42,13 @@ public class PasajeDAO{
 		  } catch (Exception e) {
 		   System.out.println("no se pudo consultar el pasaje\n"+e);
 		  }
+		  
+		  conexion.desconectar();
+		  
 		  return pasajesEnCurso;
 		 }
 
-	public void setConexion(ConexionBD conexion) {
-		this.conexion = conexion;
-	}	
+	
 	
 	
 }

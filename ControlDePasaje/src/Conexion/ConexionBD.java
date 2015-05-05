@@ -10,7 +10,7 @@ public class ConexionBD {
 	static String bd = "silav";
 	static String login = "root";
 	static String password = "Silav_2015";
-	static String url = "jdbc:mysql://localhost/"+bd+"?autoReconnect=true";
+	static String url = "jdbc:mysql://localhost/"+bd;
 	 
 	Connection connection = null;
 	 
@@ -37,7 +37,12 @@ public class ConexionBD {
 	   }
 	 
 	   public void desconectar(){
-	      connection = null;
+	      try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	   }
 	   
 	   public boolean sinConexion(){

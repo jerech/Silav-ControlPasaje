@@ -13,12 +13,12 @@ public class ChoferDAO {
 
 	private ConexionBD conexion;
 	
-	public ChoferDAO(ConexionBD conexion){
-		this.conexion = conexion;
+	public ChoferDAO(){
+		
 	}
 	
 	public ArrayList<Chofer> getChoferesConectados() {
-		
+		conexion = new ConexionBD();
 		  ArrayList<Chofer> choferesConectados = new ArrayList<Chofer>();
 		     
 		  try {
@@ -54,6 +54,7 @@ public class ChoferDAO {
 		  } catch (Exception e) {
 		   System.out.println("no se pudo consultar el chofer\n"+e);
 		  }
+		  conexion.desconectar();
 		  return choferesConectados;
 		 }
 
