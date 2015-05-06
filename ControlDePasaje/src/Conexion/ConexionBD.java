@@ -8,45 +8,45 @@ import java.util.Calendar;
  */
 public class ConexionBD {
 	/**Parametros de conexion*/
-	private static String bd = "silav";
-	private static String login = "root";
-	private static String password = "Silav_2015";
-	private static String url = "jdbc:mysql://localhost/"+bd;
+	private final static String user = "root";
+	private final static String password = "Silav_2015";
+	private final static String url = "jdbc:mysql://localhost/silav";
 	 
 	private static Connection connection = null;
 	
 	
 	   /**Permite retornar la conexión*/
-	   public static Connection getConnection(){
+	   public static Connection getConnection() throws SQLException{
+		   System.out.println(Calendar.getInstance().getTime().toString()+".Se abre conexion, la url es: "+url);
 		   try{
 				//obtenemos el driver de para mysql
 		         Class.forName("com.mysql.jdbc.Driver");
 		         //obtenemos la conexión
-		         connection = DriverManager.getConnection(url,login,password);
+		         connection = DriverManager.getConnection(url,user,password);
 		      }
-		      catch(SQLException e){
-		    	  System.out.println("El error se produjo el: "+Calendar.getInstance().getTime().toString());
-		         System.out.println(e.getMessage());
-		      }catch(ClassNotFoundException e){
-		    	  System.out.println("El error se produjo el: "+Calendar.getInstance().getTime().toString());
-		         System.out.println(e.getMessage());
-		      }catch(Exception e){
-		    	  System.out.println("El error se produjo el: "+Calendar.getInstance().getTime().toString());
-		         System.out.println(e.getMessage());
+		      catch(Exception e){
+		         System.err.println(e.getMessage());
+		         e.printStackTrace();
+		         throw new SQLException(); 
 		      }
 	      return connection;
 	   }
 	 
 	   public static void desconectar(){
-	      try {
-			connection.close();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		  if(connection != null){
+			  
+		  
+		      try {
+				connection.close();
+				
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		      connection = null;
+		  }
 	      
-	      connection = null;
+	      
 	   }
 	   
 	   

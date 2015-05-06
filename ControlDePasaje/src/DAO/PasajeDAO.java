@@ -20,7 +20,7 @@ public class PasajeDAO{
 	public ArrayList<Pasaje> getPasajesEnCurso() {
 		
 		  ArrayList<Pasaje> pasajesEnCurso = new ArrayList<Pasaje>();
-		     
+		  
 		  try {
 		   PreparedStatement consulta = ConexionBD.getConnection().prepareStatement("SELECT * FROM PasajesEnCurso WHERE estado = 'por_asignar'");
 		   ResultSet resultado = consulta.executeQuery();
