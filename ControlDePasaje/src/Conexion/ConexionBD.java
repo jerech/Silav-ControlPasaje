@@ -17,7 +17,7 @@ public class ConexionBD {
 	
 	   /**Permite retornar la conexión*/
 	   public static Connection getConnection() throws SQLException{
-		   System.out.println(Calendar.getInstance().getTime().toString()+".Se abre conexion, la url es: "+url);
+		   //System.out.println(Calendar.getInstance().getTime().toString()+".Se abre conexion, la url es: "+url);
 		   try{
 				//obtenemos el driver de para mysql
 		         Class.forName("com.mysql.jdbc.Driver");

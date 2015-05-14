@@ -1,61 +1,77 @@
 package Principal;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import com.google.android.gcm.server.Message;
 import com.google.android.gcm.server.Result;
 import com.google.android.gcm.server.Sender;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-
 import Conexion.ConexionBD;
-import DAO.PasajeDAO;
 import DAO.ChoferDAO;
-import VO.Pasaje;
+import DAO.PasajeDAO;
 import VO.Chofer;
+import VO.Pasaje;
 
-public class Principal {
+public class Principal{
 
 	private ArrayList<Pasaje> pasajes;
 	private ArrayList<Chofer> choferes;
 	private ArrayList<Pasaje> pasajesAnteriores;
 	private ArrayList<Chofer> choferesAnteriores;
 	private PasajeDAO pasajeDAO;
-	private ChoferDAO choferDAO;
+	//private ChoferDAO choferDAO;
+	private Observable temporizador;
 	private final String apiKey = "AIzaSyBRy8ZJ8bpiqg9Dny05p24WsKCDGLQLYSs";
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Principal principal = new Principal();
-		principal.pasajeDAO = new PasajeDAO();
-		principal.choferDAO = new ChoferDAO();
-		principal.pasajesAnteriores = new ArrayList<Pasaje>();
-		principal.choferesAnteriores = new ArrayList<Chofer>();
-		principal.iniciar();
-	}
-
-	private void iniciar(){
+	public static void main (String [] args)
+    {
+        Temporizador temporizador = new Temporizador();
+        Principal principal = new Principal();
+        principal.inicializarVariables(temporizador);
+        principal.observar();
+    }
+	
+	public void inicializarVariables(Observable temporizador){
+		this.pasajeDAO = new PasajeDAO();
+		//this.choferDAO = new ChoferDAO();
+		this.pasajesAnteriores = new ArrayList<Pasaje>();
+		this.choferesAnteriores = new ArrayList<Chofer>();
+		this.temporizador = temporizador;
+    }
+	
+	public void observar(){
+    	// Suscripción al cambio de fecha/hora en el modelo recibido.
+    	temporizador.addObserver (new Observer()
+        {
+            public void update (Observable unObservable, Object dato)
+            {
+            	iniciar();
+            }
+        });
+    }
+	
+private void iniciar(){
 		
 		pasajes = pasajeDAO.getPasajesEnCurso();
 		if(pasajes.size() == 0){
 			//System.out.println("No hay pasajes..");
-			esperar(10);
 		}
 		else{
-			System.out.println("Hay pasajes pendientes..");
-			choferes = choferDAO.getChoferesConectados();
+			//System.out.println("Hay pasajes pendientes..");
+			choferes = ChoferDAO.getChoferesConectados();
 			if(choferes.size() == 0){
-				System.out.println("No hay choferes conectados..");
-				esperar(10);
+				//System.out.println("No hay choferes conectados..");
 			}
 			else{
 				
 				if(listaDePasajesIguales(pasajes, pasajesAnteriores) && listaDeChoferesIguales(choferes, choferesAnteriores)){
-					System.out.println("No hay cambios en las listas de pasajes y choferes..");
-					esperar(10);
+					//System.out.println("No hay cambios en las listas de pasajes y choferes..");
 				}
 				else{
 					pasajesAnteriores.clear();
@@ -72,23 +88,13 @@ public class Principal {
 			}
 			
 		}
-		iniciar();
-	}
-	
-	private void esperar (int segundos) {
-		try {
-			Thread.sleep (segundos*1000);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		// Mensaje en caso de que falle
-		}
 	}
 	
 	private void asignarPasaje(Pasaje pasaje){
 		boolean pasajeEnviado = false;
 		for(int i=0 ; i<choferes.size() ; i++){
 			if(pasaje.getChofer().equals(choferes.get(i).getUsuario())){
-				System.out.println("Asignando pasaje..");
+				//System.out.println("Asignando pasaje..");
 				pasajeEnviado = enviarPasaje(pasaje, choferes.get(i));
 				if(pasajeEnviado == true){
 					actualizarEstadoPasaje(pasaje);
@@ -114,7 +120,7 @@ public class Principal {
 		try {
 			Result result = sender.sendNoRetry(message, chofer.getClaveGCM());
 			if(result.getErrorCodeName()!=null){
-				System.out.println("Se envio el pasaje correctamente");
+				//System.out.println("Se envio el pasaje correctamente");
 			}else{
 				System.out.println("No se envio el pasaje correctamente. "+result.getErrorCodeName());
 			}
@@ -127,7 +133,6 @@ public class Principal {
 			envioExitoso = false;
 		}
 		
-		envioExitoso = true;
 		return (envioExitoso);
 	}
 	
