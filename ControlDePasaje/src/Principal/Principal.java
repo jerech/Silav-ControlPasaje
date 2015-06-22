@@ -114,7 +114,7 @@ public class Principal {
 			if(result.getErrorCodeName()==null){
 				//System.out.println("Se envio el pasaje correctamente");
 			}else{
-				System.out.println("No se envio el pasaje correctamente. "+result.getErrorCodeName());
+				System.out.println("Error al enviar push. ID pasaje:"+pasaje.getId()+". Codigo error:"+result.getErrorCodeName());
 			}
 			envioExitoso = true;
 		} catch(IOException e) {
