@@ -6,8 +6,9 @@ public class Pasaje {
 	private String cliente;
 	private String id;
 	private String fecha;
-	private String usuarioChofer;//ATRIBUTO TEMPORAL
-	//preferenciasDeMovil
+	private String usuarioChofer;
+	private double longitud;
+	private double latitud;
 	
 	public String getDireccion(){
 		return this.direccion;
@@ -36,6 +37,7 @@ public class Pasaje {
 	public void setChofer(String usuarioChofer){
 		this.usuarioChofer = usuarioChofer;
 	}
+	
 	public String getFecha() {
 		return fecha;
 	}
@@ -43,5 +45,17 @@ public class Pasaje {
 		this.fecha = fecha;
 	}
 	
+	public double getLatitud() {
+		return latitud;
+	}
+	public void setLatitud(double latitud) {
+		this.latitud = latitud;
+	}
 	
+	public double getLongitud() {
+		return longitud;
+	}
+	public void setLongitud(double longitud) {
+		this.longitud = longitud;
+	}
 }

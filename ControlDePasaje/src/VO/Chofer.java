@@ -3,10 +3,11 @@ package VO;
 public class Chofer {
 
 	private String usuario;
-	private String longitud;
-	private String latitud;
+	private double longitud;
+	private double latitud;
+	private double distanciaADestino;
 	private String claveGCM;
-	private int numeroDeMovil;//ATRIBUTO TEMPORAL
+	private int numeroDeMovil;
 	
 	public String getUsuario(){
 		return this.usuario;
@@ -15,11 +16,18 @@ public class Chofer {
 		this.usuario = usuario;
 	}
 	
-	public String getLongitud(){
+	public double getLongitud(){
 		return this.longitud;
 	}
-	public void setLongitud(String longitud){
+	public void setLongitud(double longitud){
 		this.longitud = longitud;
+	}
+	
+	public double getDistanciaADestino(){
+		return this.distanciaADestino;
+	}
+	public void setDistanciaADestino(double distanciaADestino){
+		this.distanciaADestino = distanciaADestino;
 	}
 	
 	public String getClaveGCM(){
@@ -29,10 +37,10 @@ public class Chofer {
 		this.claveGCM = claveGCM;
 	}
 
-	public String getLatitud(){
+	public double getLatitud(){
 		return this.latitud;
 	}
-	public void setLatitud(String latitud){
+	public void setLatitud(double latitud){
 		this.latitud = latitud;
 	}
 	
