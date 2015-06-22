@@ -17,7 +17,7 @@ public class PasajeDAO{
 	public static ArrayList<Pasaje> getPasajesEnCurso() {
 		ArrayList<Pasaje> pasajesEnCurso = new ArrayList<Pasaje>(); 
 		try {
-			PreparedStatement consulta = ConexionBD.getConnection().prepareStatement("SELECT direccion, nombreCliente, id, usuarioChofer, latDireccion, lonDireccion, DATE_FORMAT(fecha,'%d/%m/%Y %H:%m') as fecha FROM PasajesEnCurso WHERE estado = 'por_asignar'");
+			PreparedStatement consulta = ConexionBD.getConnection().prepareStatement("SELECT direccion, nombreCliente, id, usuarioChofer, latDireccion, lonDireccion, DATE_FORMAT(fecha,'%d/%m/%Y %H:%i') as fecha FROM PasajesEnCurso WHERE estado = 'por_asignar'");
 		    ResultSet resultado = consulta.executeQuery();
 		    while(resultado.next()){
 		    	Pasaje pasaje= new Pasaje();
