@@ -113,7 +113,7 @@ public class Principal {
 		    .build();
 		try {
 			Result result = sender.sendNoRetry(message, chofer.getClaveGCM());
-			if(result.getErrorCodeName()!=null){
+			if(result.getErrorCodeName()==null){
 				System.out.println("Se envio el pasaje correctamente");
 			}else{
 				System.out.println("No se envio el pasaje correctamente. "+result.getErrorCodeName());
