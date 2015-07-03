@@ -29,6 +29,7 @@ public class PasajeDAO{
 			    pasaje.setLongitud(Double.parseDouble(resultado.getString("lonDireccion")));
 			    pasaje.setFecha(resultado.getString("fecha"));
 			    pasajesEnCurso.add(pasaje);
+			   
 		    }
 		    resultado.close();
 		    consulta.close();

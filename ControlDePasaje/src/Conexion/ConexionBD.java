@@ -9,7 +9,7 @@ public class ConexionBD {
 	/**Parametros de conexion*/
 	private final static String user = "root";
 	private final static String password = "Silav_2015";
-	private final static String url = "jdbc:mysql://localhost/silav";
+	private final static String url = "jdbc:mysql://localhost/silav?characterEncoding=utf8";
 	 
 	private static Connection connection = null;
 		
